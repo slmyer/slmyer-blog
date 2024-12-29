@@ -38,7 +38,7 @@ export default {
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
-      typography: ({ theme }) => ({
+      typography: ({ theme }: { theme: (key: string) => string }) => ({
         dark: {
           css: {
             '--tw-prose-body': 'var(--sub-text-color)', // 正文颜色
