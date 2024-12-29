@@ -40,10 +40,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "commitizen": "^4.3.1",
-    "cz-conventional-changelog": "^3.3.0",
+    "commitizen": "4.3.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.2",
+    "git-cz": "4.9.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
     "postcss": "^8",
@@ -62,7 +62,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./node_modules/git-cz"
     }
   }
 }

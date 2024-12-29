@@ -1,1 +1,2 @@
-exec < /dev/tty && node_modules/.bin/cz --hook || true
+#!/usr/bin/env sh
+exec < /dev/tty && npx --no-install git-cz --hook
