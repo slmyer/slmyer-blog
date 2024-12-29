@@ -21,7 +21,7 @@ jobs:
           port: 2222 # 你的自定义 SSH 端口
           script: |
             # 设置项目路径和仓库地址，作为动态环境变量
-            PROJECT_DIR="~/slmyer/slmyer-blog"
+            PROJECT_DIR="$HOME/slmyer/slmyer-blog"
             REPO_URL="git@github.com:slmyer/slmyer-blog.git"
 
             # 进入项目目录，如果不存在则克隆仓库
