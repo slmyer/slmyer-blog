@@ -13,7 +13,7 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: #121212;
     --foreground: #e4e4e4;
     --color-primary: #9e78ff; /* 默认主题 */
     --card-bg-color: #262626;

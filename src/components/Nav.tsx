@@ -4,7 +4,7 @@ import SwitchTheme from './SwitchTheme'
 const navConfig = [
   {
     href: '/blog',
-    title: '博客',
+    title: '文章',
   },
   {
     href: '/about',

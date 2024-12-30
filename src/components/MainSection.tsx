@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function MainSection() {
   return (
-    <div className="relative top-0 h-[80vh] overflow-hidden">
+    <div className="relative top-0 h-[90vh] overflow-hidden">
       <ParallaxSection className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-indigo-600 opacity-90" />
       </ParallaxSection>
