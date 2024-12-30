@@ -49,7 +49,13 @@ export function getBlogPosts() {
   return getMDXData(catalogs)
 }
 
-export function getBlogByCatalog(type: 'blog' | 'weekly') {
+export function getBlogByCatalog(type = 'blog') {
   const files = getMDXFiles(path.join(MDXConfig.dirPath, type))
   return files.map((file) => readMDXFile(path.join(MDXConfig.dirPath, type, file)))
+}
+
+export function getRecentPosts(limit = 5) {
+  const allBlogs = getBlogByCatalog()
+
+  return allBlogs.sort((a, b) => +a.date - +b.date).slice(0, limit)
 }

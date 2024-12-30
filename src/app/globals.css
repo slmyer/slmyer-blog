@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: #f4f4f4;
+    --background: rgba(249, 250, 251, 1);
     --foreground: #1a1a1a;
     --color-primary: #6d28d9; /* 默认主题 */
     --card-bg-color: #fff;
@@ -13,7 +13,7 @@
   }
 
   .dark {
-    --background: #121212;
+    --background: 222.2 84% 4.9%;
     --foreground: #e4e4e4;
     --color-primary: #9e78ff; /* 默认主题 */
     --card-bg-color: #262626;

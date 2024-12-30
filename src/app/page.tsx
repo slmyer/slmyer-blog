@@ -1,9 +1,12 @@
-export default function Home() {
+import MainSection from '@/components/MainSection'
+import RecentPosts from '@/components/RecentPosts'
+
+export default function HomePage() {
   return (
-    <div className="">
+    <div className="min-h-screen animate-fade-in-up bg-background delay-200">
       <main>
-        <section>Slmyer Blog</section>
-        <section>{/* <h1>最新文章</h1> */}</section>
+        <MainSection></MainSection>
+        <RecentPosts></RecentPosts>
       </main>
     </div>
   )

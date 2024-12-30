@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="text-muted-foreground bottom-0 overflow-hidden py-8 text-center text-sm">
-      Copyright © {new Date().getFullYear()} Slmyer
+      Copyright © {new Date().getFullYear()} Slmyer |
       <a
         href="https://beian.miit.gov.cn/"
         target="_blank"

@@ -16,7 +16,7 @@ export default function Card({ post }: { post: IPost }) {
           <h2 className="text-2xl font-bold text-text transition-colors">{post.title}</h2>
 
           {post.summary && (
-            <p className="mt-2 line-clamp-2 text-lg leading-relaxed text-sub-text sm:line-clamp-1">
+            <p className="text-md mt-2 line-clamp-2 leading-relaxed text-sub-text sm:line-clamp-1">
               {post.summary}
             </p>
           )}
