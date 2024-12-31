@@ -1,0 +1,96 @@
+---
+title: 'Javascript 中的相等型判断'
+author: 'slmyer'
+date: '2024/12/31 18:39:30'
+tags: ['Javascript']
+summary: '介绍关于 Javascript 中四种相等的算法，以及它们常见的区别与场景。'
+---
+
+## 前置
+
+`Javascript` 提供三种不同的值比较运算：
+
+1. 严格相等（三等）`===`
+2. 宽松相等（两等）`==`
+3. `Object.is()`
+
+`Javascript` 中的四个相等算法：
+
+1. 宽松相等
+2. 严格相等
+3. 同值相等
+4. 零值相等
+
+## 使用严格相等
+
+严格比较两个值是否相等，比较前不进行**隐式转换**。数组的索引查找也使用的是严格相等，例如 `Array.prototype.indexOf`
+
+```typescript:a.ts
+console.log(+0 === -0) // true
+console.log(NaN === NaN) // false
+const array = [NaN]
+array.indexOf(NaN) // -1
+```
+
+## 使用宽松相等
+
+1. 如果操作数类型相等，则按以下方式比较
+   1. 对象：两个操作数是同一引用返回 `true`
+   2. 字符串： 两个操作数字符串相等返回 `true`
+   3. 数字： 值相等，`-0` 与 `+0` 被视为相同的值，`NaN` 永远不等于自身
+   4. 布尔：值相等
+   5. `BigInt`：值相等
+   6. `Symbol`：两个操作数引用相同的符号返回 `true`
+2. `null` 与 `undefined`：两个操作数必须都是 `null` 与 `undefined`
+3. 对象与原始值：对象需要进行[隐式转换](https://www.yuque.com/domkey/ff37ti/wn07nvmshx7kq7yg)
+4. 两个对象都不是原始值，需要将两个操作数都变成原始值进行比较
+
+```typescript
+console.log(5 == 5) // true
+console.log('abc' == 'abc') // true
+console.log(null == undefined) // true
+console.log(undefined == 0) // false 对于第2点
+console.log(true == 1) // true，true 转换为 1
+console.log(false == 0) // true，false 转换为 0
+console.log(true == 0) // false
+console.log(5 == '5') // true，字符串 '5' 转换为数字 5
+console.log(5 == 'abc') // false，'abc' 转换失败为 NaN
+console.log(5 == 5n) // true，直接按数值比较
+console.log(5 == NaN) // false，NaN 不等于任何值
+```
+
+## 使用 Object.is 进行同值相等比较 SameValue
+
+```typescript
+console.log(Object.is(NaN, NaN))
+// Expected output: true
+
+console.log(Object.is(-0, 0))
+// Expected output: false
+```
+
+> Object.is 与宽松相等以及严格相等的区别
+>
+> 1.  不会进行隐式的类型转换（与宽松相等的区别）
+> 2.  -0 与 +0 不会相等，NaN 与 NaN 则会相等（与严格相等的区别）
+
+## 零值相等 SameValueZero
+
+类似于同值相等，相对于严格相等 `NaN` 被视作相等的，同时与同值相等的区别 `-0` 与 `+0` 被视作相等的。与此对应的是`Array.prototype.includes` 采用这种比较方式来检查数组中是否包含某个值。
+
+可以参考 [GitHub - tc39/proposal-Array.prototype.includes: Spec, tests, reference implementation, and docs for ESnext-track Array.prototype.includes](https://github.com/tc39/proposal-Array.prototype.includes)
+
+## 使用场景
+
+1. 何时使用 `Object.is `
+
+- 需要对 `NaN` 进行相等的场景，以及 `-0` 与 `+0` 不等的情况
+- 宽松比较涉及隐式转换场景，无法区分类型
+- 严格比较需要同类型，但是无法区分 `0` 的正负，以及 `NaN` 被视作不相等
+- 同值比较需要值相等，可以区分 `0` 的正负，`NaN` 被视作相等
+- 零值相等类似同值相等，无法区分 `0` 的正负，`NaN` 被视作相等
+
+| <font>x</font>   | <font>y</font>    | <font>==</font> | <font>===</font> | <font>Object.is</font> | <font>SameValueZero</font> |
+| :--------------- | :---------------- | :-------------- | :--------------- | :--------------------- | :------------------------- |
+| <font>+0</font>  | <font >-0</font>  | true            | true             | false                  | true                       |
+| <font>NaN</font> | <font >NaN</font> | false           | false            | true                   | true                       |

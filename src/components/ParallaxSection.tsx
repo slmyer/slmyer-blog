@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 
 interface ParallaxSectionProps {
   children: React.ReactNode
@@ -14,20 +14,36 @@ export default function ParallaxSection({
   className = '',
 }: ParallaxSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const animationFrameId = useRef<number | null>(null)
 
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    const handleScroll = () => {
-      const scrolled = window.scrollY
-      const yPos = -(scrolled * speed)
-      section.style.transform = `translate3d(0, ${yPos}px, 0)`
+  const handleScroll = useCallback(() => {
+    if (animationFrameId.current !== null) {
+      cancelAnimationFrame(animationFrameId.current)
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    animationFrameId.current = requestAnimationFrame(() => {
+      const section = sectionRef.current
+      if (!section) return
+
+      const rect = section.getBoundingClientRect()
+      const scrolled = window.scrollY
+      const offsetTop = rect.top + scrolled
+      const yPos = -(scrolled - offsetTop) * speed
+
+      section.style.transform = `translate3d(0, ${yPos}px, 0)`
+    })
   }, [speed])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      if (animationFrameId.current !== null) {
+        cancelAnimationFrame(animationFrameId.current)
+      }
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [handleScroll])
 
   return (
     <div ref={sectionRef} className={`will-change-transform ${className}`}>

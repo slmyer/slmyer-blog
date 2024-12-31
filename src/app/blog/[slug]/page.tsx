@@ -3,6 +3,7 @@ import { getBlogPosts } from '@/app/blog/utils'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import rehypePrismPlus from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
+import remarkMdx from 'remark-mdx'
 import remarkMath from 'remark-math'
 import { remarkAlert } from 'remark-github-blockquote-alert'
 import '@/styles/prism.css'
@@ -23,9 +24,24 @@ export async function generateStaticParams() {
   })
 }
 
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+  const { slug } = await props.params
+  const post = getBlogPosts().find((post) => encodeURIComponent(post.slug) === slug)
+
+  if (!post) {
+    return
+  }
+
+  return {
+    title: post.title,
+    description: post.summary,
+  }
+}
+
 export default async function Blog(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
-  const post = getBlogPosts().find((post) => post.slug === slug)
+
+  const post = getBlogPosts().find((post) => encodeURIComponent(post.slug) === slug)
 
   if (!post) {
     notFound()
@@ -34,16 +50,16 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
   const { content } = await compileMDX({
     source: post.content,
     options: {
-      parseFrontmatter: false,
+      parseFrontmatter: true,
       mdxOptions: {
-        remarkPlugins: [remarkGfm, remarkMath, remarkAlert],
+        remarkPlugins: [remarkGfm, remarkMath, remarkAlert, remarkMdx],
         rehypePlugins: [
           [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
           rehypeSlug,
           [
             rehypeAutolinkHeadings,
             {
-              behavior: 'prepend',
+              behavior: 'append',
               headingProperties: {
                 className: ['content-header'],
               },
@@ -98,12 +114,13 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
           rehypeKatexNoTranslate,
           rehypeCitation,
         ],
+        format: 'mdx',
       },
     },
   })
 
   return (
-    <section className="w-full animate-fade-in-up overflow-hidden px-4 delay-200 xl:px-0">
+    <section className="w-full animate-fade-in-up overflow-hidden px-4 py-8 delay-200 xl:px-0">
       <header className="flex flex-col items-center space-y-4 border-b border-gray-200 pb-10 text-center dark:border-gray-700">
         <h1 className="md:leading-14 text-3xl font-extrabold leading-9 tracking-tight text-text sm:text-4xl sm:leading-10 md:text-5xl">
           {post.title}

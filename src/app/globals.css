@@ -10,6 +10,7 @@
     --card-bg-color: #fff;
     --text-color: #2c2c2c;
     --sub-text-color: #6b7280;
+    --code-color: #6366f1;
   }
 
   .dark {
@@ -19,10 +20,22 @@
     --card-bg-color: #262626;
     --text-color: #e4e4e7;
     --sub-text-color: #9ca3af;
+    --code-color: #a5b4fc;
   }
 }
 
-html {
+@layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+}
+
+html,
+body {
   scroll-behavior: smooth;
 }
 
@@ -32,9 +45,17 @@ body {
   @apply font-space;
 }
 
+.prose a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.prose code {
+  color: var(--code-color);
+}
+
 .content-header a {
   opacity: 0;
-  display: none;
   transition: all 0.3s ease;
 }
 

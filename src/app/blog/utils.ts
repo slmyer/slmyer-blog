@@ -17,11 +17,14 @@ const MDXConfig = {
 
 export function getCatalogs() {
   const catalogs = fs.readdirSync(MDXConfig.dirPath)
-  return catalogs
+  return catalogs.filter((catalog) => {
+    const stats = fs.statSync(path.join(MDXConfig.dirPath, catalog))
+    return stats.isDirectory()
+  })
 }
 
 function getMDXFiles(dir: fs.PathLike) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx')
+  return fs.readdirSync(dir).filter((file) => file.endsWith('.mdx'))
 }
 
 function readMDXFile(filePath: fs.PathOrFileDescriptor) {
@@ -51,6 +54,7 @@ export function getBlogPosts() {
 
 export function getBlogByCatalog(type = 'blog') {
   const files = getMDXFiles(path.join(MDXConfig.dirPath, type))
+
   return files.map((file) => readMDXFile(path.join(MDXConfig.dirPath, type, file)))
 }
 

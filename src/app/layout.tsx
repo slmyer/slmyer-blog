@@ -26,10 +26,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh" className={`${space.className} ${space.variable} ${fira.variable}`}>
-      <body className={`bg-gray-50 transition-colors dark:bg-gray-900`}>
+      <body className={`bg-background transition-colors`}>
         <ThemeProvider>
-          <div className="bg-grid-gray-900/[0.04] dark:bg-grid-gray-100/[0.03] fixed inset-0 -z-10" />
-          <div className="mx-auto flex min-h-screen flex-col">
+          <div className="scrollbar-none mx-auto flex h-[100vh] min-h-screen flex-col overflow-y-scroll">
             <Header></Header>
             <main className="flex-1">{children}</main>
             <Footer></Footer>
