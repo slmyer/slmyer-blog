@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { format } from 'date-fns'
-import { zhCN } from 'date-fns/locale'
+import dayjs from 'dayjs'
 import { ArrowRight } from 'lucide-react'
 import type { IPost } from '@/app/blog/utils'
 
@@ -16,7 +15,7 @@ export function ArticleCard({ title, summary, date, slug }: IPost) {
           <p className="text-muted-foreground mb-4 line-clamp-2 text-sm">{summary}</p>
           <div className="flex items-center justify-between">
             <time className="text-muted-foreground text-sm">
-              {format(date, 'PPP', { locale: zhCN })}
+              <time> {dayjs(date).format('YYYY年MM月DD日')}</time>
             </time>
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </div>

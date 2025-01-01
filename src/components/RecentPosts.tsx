@@ -4,6 +4,10 @@ import { ArticleCard } from './ArticleCard'
 export default async function RecentPosts() {
   const posts = await getRecentPosts()
 
+  if (!posts.length) {
+    return
+  }
+
   return (
     <section className="container mx-auto px-4 py-12 sm:px-0">
       <h2 className="mb-8 text-3xl font-bold tracking-tight">近期文章</h2>

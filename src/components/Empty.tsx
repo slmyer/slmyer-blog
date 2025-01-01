@@ -10,13 +10,13 @@ export default function EmptyState() {
             strokeWidth="6"
             strokeLinecap="round"
           />
-          <circle cx="105" cy="105" r="25" fill="#6D28D9" />
+          <circle cx="105" cy="105" r="25" fill={`var(--color-primary)`} />
           <path d="M105 95V115M95 105H115" stroke="white" strokeWidth="4" strokeLinecap="round" />
         </svg>
-        <div className="absolute inset-0 animate-pulse rounded-full bg-white bg-opacity-50"></div>
+        <div className="absolute inset-0 animate-pulse rounded-full bg-opacity-50"></div>
       </div>
-      <h3 className="mb-2 text-xl font-semibold text-gray-800">暂无文章</h3>
-      <p className="max-w-md text-gray-500">懒癌犯了，新内容还没鼓捣好。</p>
+      <h3 className="mb-2 text-xl font-semibold text-text">暂无文章</h3>
+      <p className="max-w-md text-sub-text">懒癌犯了，新内容还没鼓捣好。</p>
     </div>
   )
 }

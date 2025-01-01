@@ -30,7 +30,7 @@ export default function ParallaxSection({
       const offsetTop = rect.top + scrolled
       const yPos = -(scrolled - offsetTop) * speed
 
-      section.style.transform = `translate3d(0, ${yPos}px, 0)`
+      section.style.transform = `translate3d(0, ${yPos * 2}px, 0)`
     })
   }, [speed])
 

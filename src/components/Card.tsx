@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { format } from 'date-fns'
-import { zhCN } from 'date-fns/locale'
+import dayjs from 'dayjs'
 import { IPost } from '@/app/blog/utils'
 import { Calendar, Tag, ArrowRight } from 'lucide-react'
 
@@ -24,7 +23,7 @@ export default function Card({ post }: { post: IPost }) {
           <div className="text-muted-foreground mt-2 flex flex-wrap items-center gap-4 text-sm">
             <div className="flex items-center gap-1.5 text-sub-text">
               <Calendar className="h-4 w-4" />
-              <time> {format(post.date, 'PPP', { locale: zhCN })}</time>
+              <time> {dayjs(post.date).format('YYYY年MM月DD日')}</time>
             </div>
             <div className="flex items-center gap-1">
               <Tag className="h-4 w-4 text-sub-text" />

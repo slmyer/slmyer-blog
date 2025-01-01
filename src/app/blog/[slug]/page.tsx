@@ -1,4 +1,7 @@
+import '@/styles/prism.css'
 import { notFound } from 'next/navigation'
+import dayjs from 'dayjs'
+import { Calendar, Tag } from 'lucide-react'
 import { getBlogPosts } from '@/app/blog/utils'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import rehypePrismPlus from 'rehype-prism-plus'
@@ -6,10 +9,6 @@ import remarkGfm from 'remark-gfm'
 import remarkMdx from 'remark-mdx'
 import remarkMath from 'remark-math'
 import { remarkAlert } from 'remark-github-blockquote-alert'
-import '@/styles/prism.css'
-import { Calendar, Tag } from 'lucide-react'
-import { format } from 'date-fns'
-import { zhCN } from 'date-fns/locale'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeKatex from 'rehype-katex'
@@ -120,14 +119,14 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
   })
 
   return (
-    <section className="w-full animate-fade-in-up overflow-hidden px-4 py-8 delay-200 xl:px-0">
+    <section className="w-full animate-fade-in-up overflow-hidden px-4 pt-16 delay-200 xl:px-0">
       <header className="flex flex-col items-center space-y-4 border-b border-gray-200 pb-10 text-center dark:border-gray-700">
         <h1 className="md:leading-14 text-3xl font-extrabold leading-9 tracking-tight text-text sm:text-4xl sm:leading-10 md:text-5xl">
           {post.title}
         </h1>
         <div className="flex items-center gap-1.5 text-sub-text">
           <Calendar className="h-4 w-4" />
-          <time> {format(post.date, 'PPP', { locale: zhCN })}</time>
+          <time> {dayjs(post.date).format('YYYY年MM月DD日')}</time>
         </div>
         <div className="flex items-center gap-1 text-sub-text">
           <Tag className="h-4 w-4" />
@@ -142,7 +141,7 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
         </div>
       </header>
 
-      <article className="prose max-w-none pb-8 pt-10 dark:prose-dark">{content}</article>
+      <article className="prose max-w-none pt-8 dark:prose-dark">{content}</article>
     </section>
   )
 }

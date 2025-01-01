@@ -18,7 +18,7 @@ const fira = Fira_Code({
 })
 
 export const metadata: Metadata = {
-  title: 'slmyer博客',
+  title: 'Slmyer 博客',
   description: 'A minimalist personal blog with a touch of elegance',
   icons: '/images/slmyer.png',
 }
