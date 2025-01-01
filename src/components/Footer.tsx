@@ -4,10 +4,10 @@ const Footer = () => {
   return (
     <footer className="w-full py-4 md:py-8">
       <div className="container mx-auto">
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="flex flex-col-reverse items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center">
             <span className="text-sm text-sub-text">
-              Copyright © {new Date().getFullYear()} Slmyer
+              Copyright © 2024 - {new Date().getFullYear()} Slmyer
             </span>
           </div>
           <div className="flex flex-col items-center gap-4 text-sm text-sub-text md:flex-row">

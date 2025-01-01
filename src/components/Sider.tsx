@@ -23,9 +23,8 @@ export default function Sidebar({ posts }: { posts: IPost[] }) {
   const recentPosts = posts.sort((a, b) => +a.date - +b.date).slice(0, 3)
 
   return (
-    <div className={`w-full space-y-8 md:w-64`}>
-      {/* Categories Section */}
-      <div className="rounded-lg bg-card p-6">
+    <div className={`max-w-full space-y-8 md:w-64`}>
+      <div className="rounded-lg bg-card p-6 shadow-sm transition-all duration-300 ease-in-out hover:translate-y-1 hover:shadow-md">
         <h2 className="text-md mb-4 font-medium text-primary">文章分类</h2>
         <nav className="space-y-2">
           {categories.map((category) => (
@@ -41,14 +40,12 @@ export default function Sidebar({ posts }: { posts: IPost[] }) {
         </nav>
       </div>
 
-      <div className="rounded-lg bg-card p-6">
+      <div className="rounded-lg bg-card p-6 shadow-sm transition-all duration-300 ease-in-out hover:translate-y-1 hover:shadow-md">
         <h2 className="text-md mb-4 font-medium text-primary">最近文章</h2>
         <div className="space-y-4">
           {recentPosts.map((post) => (
             <article key={post.title} className="space-y-1">
-              <time className="text-xs text-sub-text">
-                {dayjs(post.date).format('YYYY年MM月DD日')}
-              </time>
+              <time className="text-xs text-sub-text">{dayjs(post.date).format('YYYY-MM-DD')}</time>
               <h3>
                 <Link
                   href={`/blog/${post.slug}`}

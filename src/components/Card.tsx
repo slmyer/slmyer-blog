@@ -9,7 +9,7 @@ export default function Card({ post }: { post: IPost }) {
       <div className="from-primary/5 absolute inset-0 bg-gradient-to-br to-transparent" />
       <Link
         href={`/blog/${post.slug}`}
-        className="relative block p-4 sm:flex sm:items-center sm:justify-between"
+        className="relative block p-4 sm:flex sm:items-center sm:justify-between lg:p-6"
       >
         <div>
           <h2 className="text-2xl font-bold text-text transition-colors">{post.title}</h2>
