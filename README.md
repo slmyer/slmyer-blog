@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Slmyer Blog
 
-## Getting Started
+使用 `NextJS` 与 `TailWind` 开发的 `MDX` 个人网站，[Slmyer Blog 网站地址](slmyer.cn)。
 
-First, run the development server:
+## 部署方式
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. 使用 `Github Actions` 推送至服务器，后端使用 Docker 进行部署，具体可以参考 `deploy.yaml`:
+
+```yaml:deploy.yaml
+name: Deploy to Server
+
+on:
+push:
+  branches:
+    - main # 只在推送到 main 分支时触发
+
+jobs:
+deploy:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Execute remote SSH commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_IP }} # 部署服务器的 IP 或域名
+        username: ${{ secrets.SERVER_USER }} # SSH 用户名
+        key: ${{ secrets.SSH_PRIVATE_KEY }} # SSH 私钥，已配置在 GitHub Secrets 中
+        port: 2222 # 你的自定义 SSH 端口
+        script: |
+          # 设置项目路径和仓库地址，作为动态环境变量
+          PROJECT_DIR="$HOME/slmyer/slmyer-blog"
+          REPO_URL="git@github.com:slmyer/slmyer-blog.git"
+
+          # 进入项目目录，如果不存在则克隆仓库
+          cd $PROJECT_DIR || git clone $REPO_URL $PROJECT_DIR && cd $PROJECT_DIR
+
+          # 拉取最新的代码并重置任何本地更改
+          git reset --hard
+          git pull origin main
+
+          # 启动docker
+          docker compose down
+          docker compose up -d --build
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. NextJS 镜像体积问题：
+   修改 `NextJS` 打包输出，参考 `next.config.ts`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```typescript:next.config.ts
+import type { NextConfig } from 'next'
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+const nextConfig: NextConfig = {
+  output: 'standalone',
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  reactStrictMode: true,
+}
 
-## Learn More
+export default nextConfig
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
