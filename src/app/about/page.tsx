@@ -55,10 +55,7 @@ export default function About() {
 
           <div className="space-y-12">
             <section className="space-y-6">
-              <p className="text-lg leading-relaxed">
-                你好！我是一名前端开发者，热爱技术创新和开源项目。专注于构建高性能、可扩展的 Web
-                应用。
-              </p>
+              <p className="text-lg leading-relaxed">暂时想不到什么来介绍自己，等想到再补充吧。</p>
             </section>
 
             <section className="space-y-8">

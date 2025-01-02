@@ -1,8 +1,8 @@
-import '@/styles/prism.css'
+import '@/src/styles/prism.css'
 import { notFound } from 'next/navigation'
 import dayjs from 'dayjs'
 import { Calendar, Tag } from 'lucide-react'
-import { getBlogPosts } from '@/app/blog/utils'
+import { getBlogPosts } from '@/src/app/blog/utils'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import rehypePrismPlus from 'rehype-prism-plus'
 import remarkGfm from 'remark-gfm'
@@ -119,7 +119,7 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
   })
 
   return (
-    <section className="w-full animate-fade-in-up overflow-hidden px-4 pt-16 delay-200 xl:px-0">
+    <section className="w-full animate-fade-in-up overflow-hidden px-4 pt-8 delay-200 md:pt-16 xl:px-0">
       <header className="flex flex-col items-center space-y-4 border-b border-gray-200 pb-10 text-center dark:border-gray-700">
         <h1 className="md:leading-14 text-3xl font-extrabold leading-9 tracking-tight text-text sm:text-4xl sm:leading-10 md:text-5xl">
           {post.title}

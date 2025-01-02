@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Fira_Code, Space_Grotesk } from 'next/font/google'
 import './globals.css'
-import Footer from '@/components/Footer'
-import { ThemeProvider } from '@/theme/ThemeContext'
-import { Header } from '@/components/Header'
+import Footer from '@/src/components/Footer'
+import { ThemeProvider } from '@/src/theme/ThemeContext'
+import { Header } from '@/src/components/Header'
 
 const space = Space_Grotesk({
   subsets: ['latin'], // 指定加载拉丁字符集

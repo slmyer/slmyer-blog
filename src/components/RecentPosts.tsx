@@ -1,4 +1,4 @@
-import { getRecentPosts } from '@/app/blog/utils'
+import { getRecentPosts } from '@/src/app/blog/utils'
 import { ArticleCard } from './ArticleCard'
 
 export default async function RecentPosts() {

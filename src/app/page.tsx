@@ -1,5 +1,5 @@
-import MainSection from '@/components/MainSection'
-import RecentPosts from '@/components/RecentPosts'
+import MainSection from '@/src/components/MainSection'
+import RecentPosts from '@/src/components/RecentPosts'
 
 export default function HomePage() {
   return (

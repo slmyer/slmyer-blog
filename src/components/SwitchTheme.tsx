@@ -1,7 +1,7 @@
 'use client'
 import { useCallback } from 'react'
 import { Moon, Sun } from 'lucide-react'
-import { useTheme } from '@/theme/ThemeContext'
+import { useTheme } from '@/src/theme/ThemeContext'
 
 const SwitchTheme = () => {
   const { theme, toggleTheme } = useTheme()

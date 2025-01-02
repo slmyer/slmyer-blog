@@ -1,8 +1,8 @@
-import { IPost } from '@/app/blog/utils'
+import { IPost } from '@/src/app/blog/utils'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 
-export default function Sidebar({ posts }: { posts: IPost[] }) {
+export default async function Sidebar({ posts, catalog }: { posts: IPost[]; catalog?: string }) {
   const tagMap = new Map()
 
   posts.forEach((post) => {
@@ -16,7 +16,7 @@ export default function Sidebar({ posts }: { posts: IPost[] }) {
     return {
       tag,
       count,
-      href: '/blog',
+      href: `/catalog/${tag}`,
     }
   })
 
@@ -31,7 +31,7 @@ export default function Sidebar({ posts }: { posts: IPost[] }) {
             <Link
               key={category.tag}
               href={category.href}
-              className="group flex items-center justify-between py-1 text-sm text-text transition-colors duration-200 hover:text-[#7C3AED]"
+              className={`group flex items-center justify-between py-1 text-sm transition-colors duration-200 hover:text-primary ${catalog === category.tag ? 'text-primary' : 'text-text'}`}
             >
               <span>{category.tag}</span>
               <span className="group-hover:text-primay text-sub-text">({category.count})</span>

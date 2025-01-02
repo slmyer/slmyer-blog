@@ -1,6 +1,6 @@
 'use client'
 
-import { useTheme } from '@/theme/ThemeContext'
+import { useTheme } from '@/src/theme/ThemeContext'
 import { useMemo } from 'react'
 
 const Icon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
