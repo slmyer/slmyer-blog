@@ -1,4 +1,4 @@
-import EmptyState from '@/src/components/Empty'
+import EmptyState from '@/components/Empty'
 
 export default async function Blog() {
   return (

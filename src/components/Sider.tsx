@@ -1,4 +1,4 @@
-import { IPost } from '@/src/app/blog/utils'
+import { IPost } from '@/app/blog/utils'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 

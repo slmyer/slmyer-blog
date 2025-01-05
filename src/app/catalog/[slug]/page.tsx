@@ -1,7 +1,7 @@
-import Card from '@/src/components/Card'
-import { getBlogByCatalog, getBlogPosts } from '@/src/app/blog/utils'
-import EmptyState from '@/src/components/Empty'
-import Sidebar from '@/src/components/Sider'
+import Card from '@/components/Card'
+import { getBlogByCatalog, getBlogPosts } from '@/app/blog/utils'
+import EmptyState from '@/components/Empty'
+import Sidebar from '@/components/Sider'
 import BaseLayout from '@/layout/BaseLayout'
 
 export async function generateStaticParams() {

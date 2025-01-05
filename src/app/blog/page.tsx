@@ -1,7 +1,7 @@
-import Card from '@/src/components/Card'
+import Card from '@/components/Card'
 import { getBlogByCatalog } from './utils'
-import EmptyState from '@/src/components/Empty'
-import Sidebar from '@/src/components/Sider'
+import EmptyState from '@/components/Empty'
+import Sidebar from '@/components/Sider'
 
 export default async function Blog() {
   const allBlogs = getBlogByCatalog('blog')

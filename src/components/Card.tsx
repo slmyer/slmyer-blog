@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import dayjs from 'dayjs'
-import type { IPost } from '@/src/app/blog/utils'
+import type { IPost } from '@/app/blog/utils'
 import { Calendar, Tag, ArrowRight } from 'lucide-react'
 
 export default function Card({ post }: { post: IPost }) {

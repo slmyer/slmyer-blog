@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { Card, CardContent, CardHeader, CardTitle } from '@/src/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import dayjs from 'dayjs'
 import { ArrowRight } from 'lucide-react'
-import type { IPost } from '@/src/app/blog/utils'
+import type { IPost } from '@/app/blog/utils'
 
 export function ArticleCard({ title, summary, date, slug }: IPost) {
   return (
