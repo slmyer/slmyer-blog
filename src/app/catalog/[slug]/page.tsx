@@ -1,8 +1,20 @@
 import Card from '@/src/components/Card'
-import { getBlogByCatalog } from '@/src/app/blog/utils'
+import { getBlogByCatalog, getBlogPosts } from '@/src/app/blog/utils'
 import EmptyState from '@/src/components/Empty'
 import Sidebar from '@/src/components/Sider'
 import BaseLayout from '@/layout/BaseLayout'
+
+export async function generateStaticParams() {
+  const tags = (await getBlogPosts()).reduce<string[]>((a, c) => {
+    return a.concat(c.tags)
+  }, [])
+
+  return Array.from(new Set([...tags])).map((t) => {
+    return {
+      slug: t,
+    }
+  })
+}
 
 export default async function Blog(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params

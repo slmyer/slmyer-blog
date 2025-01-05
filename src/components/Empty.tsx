@@ -15,7 +15,7 @@ export default function EmptyState() {
         </svg>
         <div className="absolute inset-0 animate-pulse rounded-full bg-opacity-50"></div>
       </div>
-      <h3 className="mb-2 text-xl font-semibold text-text">暂无文章</h3>
+      <h3 className="mb-2 text-xl font-semibold text-text">暂无内容</h3>
       <p className="max-w-md text-sub-text">懒癌犯了，新内容还没鼓捣好。</p>
     </div>
   )
