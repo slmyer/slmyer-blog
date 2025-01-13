@@ -49,8 +49,28 @@ export default {
             '--tw-prose-counters': '#a1a1aa', // 列表计数器颜色
             '--tw-prose-bullets': '#71717a', // 列表项目符号颜色
             '--tw-prose-hr': '#333333', // 分隔线颜色
-            '--tw-prose-quotes': '#9ca3af', // 引用文本颜色
-            '--tw-prose-quote-borders': '#52525b', // 引用边框颜色
+            '--tw-prose-quotes': 'var(--sub-text-color)', // 引用文本颜色
+            '--tw-prose-quote-borders': theme('colors.primary'), // 引用边框颜色
+            '--tw-prose-captions': '#9ca3af', // 图片说明文字颜色
+            '--tw-prose-code': '#f4f4f4', // 行内代码颜色
+            '--tw-prose-pre-code': '#f4f4f4', // 代码块文字颜色
+            '--tw-prose-pre-bg': '#1f1f1f', // 代码块背景颜色
+            '--tw-prose-th-borders': '#333333', // 表头边框颜色
+            '--tw-prose-td-borders': '#444444', // 单元格边框颜色
+          },
+        },
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': 'var(--sub-text-color)', // 正文颜色
+            '--tw-prose-headings': theme('colors.text'), // 标题颜色
+            '--tw-prose-links': theme('colors.primary'), // 链接颜色
+            '--tw-prose-links-hover': '#9333ea', // 链接悬停颜色
+            '--tw-prose-bold': theme('colors.primary'), // 粗体颜色
+            '--tw-prose-counters': '#a1a1aa', // 列表计数器颜色
+            '--tw-prose-bullets': '#71717a', // 列表项目符号颜色
+            '--tw-prose-hr': '#333333', // 分隔线颜色
+            '--tw-prose-quotes': 'var(--sub-text-color)', // 引用文本颜色
+            '--tw-prose-quote-borders': theme('colors.primary'), // 引用边框颜色
             '--tw-prose-captions': '#9ca3af', // 图片说明文字颜色
             '--tw-prose-code': '#f4f4f4', // 行内代码颜色
             '--tw-prose-pre-code': '#f4f4f4', // 代码块文字颜色
