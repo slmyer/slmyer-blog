@@ -54,12 +54,14 @@ export function getBlogPosts() {
 
 export function getBlogByCatalog(type = 'blog') {
   const files = getMDXFiles(path.join(MDXConfig.dirPath, type))
+  const sortFiles = files
+    .map((file) => readMDXFile(path.join(MDXConfig.dirPath, type, file)))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-  return files.map((file) => readMDXFile(path.join(MDXConfig.dirPath, type, file)))
+  return sortFiles
 }
 
 export function getRecentPosts(limit = 5) {
   const allBlogs = getBlogByCatalog()
-
-  return allBlogs.sort((a, b) => +a.date - +b.date).slice(0, limit)
+  return allBlogs.slice(0, limit)
 }

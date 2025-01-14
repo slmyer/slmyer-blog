@@ -114,6 +114,9 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
           rehypeCitation,
         ],
         format: 'mdx',
+        remarkRehypeOptions: {
+          footnoteLabel: '参考',
+        },
       },
     },
   })
