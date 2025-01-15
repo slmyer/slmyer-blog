@@ -7,3 +7,6 @@ services:
     restart: always
     ports:
       - 3000:3000
+    volumes:
+      - .:/app # 挂载代码目录
+      - /app/node_modules # 避免 node_modules 被覆盖

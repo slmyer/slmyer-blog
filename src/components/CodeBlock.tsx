@@ -27,20 +27,18 @@ const CodeBlockWrap = ({
   }, [raw])
 
   return (
-    <div className="overflow-hidden rounded-md shadow-sm">
+    <div className="relative overflow-hidden rounded-md shadow-sm">
       {filename && (
         <div className="flex h-10 items-center bg-code-filename-bg px-4 text-text">{filename}</div>
       )}
+      <div
+        onClick={copy}
+        className={`absolute right-4 z-[1] cursor-pointer text-sub-text transition-all duration-300 ease-in-out hover:scale-110 ${filename ? 'top-14' : 'top-4'}`}
+      >
+        {!isCopied ? <Copy size={16} /> : <ClipboardCheck size={16} />}
+      </div>
 
-      <pre className={`relative ${className}`}>
-        {children}
-        <div
-          onClick={copy}
-          className="z-6 absolute right-4 top-4 cursor-pointer text-sub-text transition-all duration-300 ease-in-out hover:scale-110"
-        >
-          {!isCopied ? <Copy size={16} /> : <ClipboardCheck size={16} />}
-        </div>
-      </pre>
+      <pre className={`relative ${className}`}>{children}</pre>
     </div>
   )
 }
