@@ -11,6 +11,8 @@
     --text-color: #2c2c2c;
     --sub-text-color: #6b7280;
     --code-color: #6366f1;
+    --code-bg-color: #f4f4f4;
+    --filename-bg: #e8ecef;
   }
 
   .dark {
@@ -21,6 +23,8 @@
     --text-color: #e4e4e7;
     --sub-text-color: #9ca3af;
     --code-color: #a5b4fc;
+    --code-bg-color: #1c1f26;
+    --filename-bg: #2a2e35;
   }
 }
 

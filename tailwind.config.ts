@@ -13,6 +13,8 @@ export default {
         card: 'var(--card-bg-color)',
         text: 'var(--text-color)',
         'sub-text': 'var(--sub-text-color)',
+        'code-bg': 'var(--code-bg-color)',
+        'code-filename-bg': 'var(--filename-bg)',
       },
       fontFamily: {
         space: ['var(--font-space)'],

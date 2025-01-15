@@ -14,6 +14,9 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeKatex from 'rehype-katex'
 import rehypeKatexNoTranslate from 'rehype-katex-notranslate'
 import rehypeCitation from 'rehype-citation'
+import rehypeMdxCodeProps from 'rehype-mdx-code-props'
+import CodeBlockWrap from '@/components/CodeBlock'
+import { visit } from 'unist-util-visit'
 
 export async function generateStaticParams() {
   return getBlogPosts().map((v) => {
@@ -53,7 +56,18 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
       mdxOptions: {
         remarkPlugins: [remarkGfm, remarkMath, remarkAlert, remarkMdx],
         rehypePlugins: [
-          [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
+          () => (tree) => {
+            visit(tree, (node) => {
+              if (node?.type === 'element' && node?.tagName === 'pre') {
+                const [codeEl] = node.children
+
+                if (codeEl.tagName !== 'code') return
+
+                node.raw = codeEl.children?.[0].value
+              }
+            })
+          },
+          [rehypePrismPlus, { defaultLanguage: 'javascript', ignoreMissing: true }],
           rehypeSlug,
           [
             rehypeAutolinkHeadings,
@@ -112,11 +126,24 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
           rehypeKatex,
           rehypeKatexNoTranslate,
           rehypeCitation,
+          () => (tree) => {
+            visit(tree, 'element', (node) => {
+              if (node?.type === 'element' && node?.tagName === 'pre') {
+                node.properties['raw'] = node.raw
+              }
+            })
+          },
+          rehypeMdxCodeProps, // 放置最后，这一步已经生成了 HTML 无法再通过 visit 访问
         ],
         format: 'mdx',
         remarkRehypeOptions: {
           footnoteLabel: '参考',
         },
+      },
+    },
+    components: {
+      pre: (props) => {
+        return <CodeBlockWrap {...props}></CodeBlockWrap>
       },
     },
   })
