@@ -9,7 +9,7 @@ export function ArticleCard({ title, summary, date, slug }: IPost) {
     <Link href={`/blog/${slug}`} className="group block">
       <Card className="border-none shadow-sm transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg">
         <CardHeader>
-          <CardTitle className="line-clamp-2 text-2xl group-hover:text-primary">{title}</CardTitle>
+          <CardTitle className="line-clamp-2 text-xl group-hover:text-primary">{title}</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground mb-4 line-clamp-2 text-sm">{summary}</p>

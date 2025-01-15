@@ -12,7 +12,7 @@ export default function Card({ post }: { post: IPost }) {
         className="relative block p-4 sm:flex sm:items-center sm:justify-between lg:p-6"
       >
         <div>
-          <h2 className="text-2xl font-bold text-text transition-colors">{post.title}</h2>
+          <h2 className="text-xl font-bold text-text transition-colors">{post.title}</h2>
 
           {post.summary && (
             <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-sub-text sm:line-clamp-1">
