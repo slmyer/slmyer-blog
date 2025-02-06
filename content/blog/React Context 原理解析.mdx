@@ -8,7 +8,7 @@ summary: '介绍关于 React Context 的原理，以及 enableLazyContextPropaga
 
 ## 前言
 
-在 `React` 中，Context`是一种高效的状态共享机制，能够避免组件层级较深时多层级`props`传递带来的问题。
+在 `React` 中，`Context`是一种高效的状态共享机制，能够避免组件层级较深时多层级`props`传递带来的问题。
 通过`Context`，我们可以在组件树中共享数据，如主题、语言、认证信息等，而无需逐层手动传递。这种机制不仅提升了代码的可读性，还大幅简化了状态管理的复杂度。
 `React`的`Context API`自 **16.3** 版本引入后，经历了多次改进，其中包括性能优化和更灵活的使用方式。在最新版本中（**React 18+**），通过引入`enableLazyContextPropagation`等机制，`Context`的性能和更新逻辑得到了显著提升。本文将从基础概念、源码分析和性能优化等方面，深入探讨`React`中的`Context`。
 
