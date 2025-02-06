@@ -1,0 +1,180 @@
+---
+title: 'interface 与 type 的区别'
+author: 'slmyer'
+date: '2024/02/06 10:53:30'
+tags: ['TypeScript']
+summary: '介绍 interface 与 type 的使用以及它们之间的区别。'
+---
+
+## 前言
+
+在重新学习 `TypeScript` 的过程中，`interface` 和 `type` 是两个关键概念。为了加深理解，就整理了它们的用法，以便更好地区分和应用。
+
+## interface 的使用
+
+### 定义对象结构
+
+`interface` 主要用于**描述对象的结构和类型**，可以定义对象的属性、方法以及对其成员进行约束。
+
+```ts
+interface Person {
+  name: string
+  age: number
+}
+```
+
+### 定义函数类型
+
+你也可以用 `interface` 定义函数，例如：
+
+```ts
+interface SearchFunc {
+  (source: string, subString: string): boolean
+}
+```
+
+### 定义类的结构
+
+此外，`interface` 还可以定义类的结构，约束类的实现：
+
+```ts
+interface PersonInstance {
+  name: string
+  age: number
+  say: () => void
+}
+
+class Person implements PersonInstance {
+  name: string
+  age: number
+
+  constructor(name: string, age: number) {
+    this.name = name
+    this.age = age
+  }
+
+  say() {
+    console.log(this.name)
+  }
+}
+```
+
+## type 的使用
+
+### 定义类型别名
+
+`type` 主要用来创建类型别名，它可以为任何类型创建别名，例如：
+
+```ts
+type Person = {
+  name: string
+  age: number
+}
+
+type Number = number
+```
+
+### 定义联合类型和交叉类型
+
+`type` 也可以创建联合类型或者交叉类型：
+
+```ts
+// 联合类型
+type basetype = number | string | boolean
+
+// 交叉类型
+type Animal = { name: string }
+type Dog = Animal & { breed: string }
+```
+
+### 定义类的结构
+
+`type` 同样可以定义类的结构，约束类的实现：
+
+```ts
+type PersonInstance = {
+  name: string
+  age: number
+}
+
+class Person implements PersonInstance {
+  name: string
+  age: number
+
+  constructor(name: string, age: number) {
+    this.name = name
+    this.age = age
+  }
+}
+```
+
+## 区别
+
+1. 声明合并
+
+- `interface` 支持同名接口的重复定义，当多次同一个接口时，TypeScript` 会自动合并它们的的成员。
+
+```ts
+interface User {
+  name: string
+}
+interface User {
+  age: number
+}
+// { name: string; age: number; }
+```
+
+- type 不允许重复定义同名类型别名，否则会报错。
+
+```ts
+type User = { name: string }
+type User = { age: number } // ❌ Error: Duplicate identifier 'User'
+```
+
+2. 扩展方式
+
+- `interface` 使用 `extends` 关键字实现扩展，它可以从其他接口或者对象类型继承。
+
+```ts
+interface Animal {
+  name: string
+}
+interface Dog extends Animal {
+  breed: string
+}
+```
+
+- `type` 使用交叉类型 `&` 组合多个类型。
+
+```ts
+type Animal = { name: string }
+type Dog = Animal & { breed: string }
+```
+
+3. 类型能力
+
+- `interface` 仅能描述**对象类型**，不支持联合类型、元祖、原始类型别名等
+
+- `type` 可以定义任何类型，包括联合类型、元组、原始类型别名、条件类型、映射类型等。
+
+```ts
+type ID = string | number // 联合类型
+type Point = [number, number] // 元组
+type Name = string // 原始类型别名
+type Readonly<T> = { readonly [K in keyof T]: T[K] } // 映射类型
+```
+
+4. 性能
+
+在 `TypeScript` 处理类型的扩展方面，使用 `extends` 来实现 `interface` 的扩展相较于使用交叉类型更具优化性。具体原因如下[^1]：
+
+1. 使用 `interface` `来扩展多个类型组合时，TypeScript` 会将类型展开，同时检测属性是否存在冲突，而 `type` 只是合并操作，导致如果存在同名属性类型不同时会生成 `never` 类型。
+2. 同时，`interface` 的类型关系是可以缓存的，而 `type` 时动态合并的，这可能会导致性能下降。
+3. 当 `TypeScript` 在检查一个交叉类型时，它会先检查每个组成部分（即组成交叉类型的每个类型）。而对于 `interface`，检查的是展平后的最终类型。这意味着交叉类型的每个部分都必须先经过验证，因此交叉类型的类型检查可能更慢。
+
+## 总结
+
+`interface` 更加适合对象结构的描述，而 `type` 更加灵活，适合复杂类型的定义。当需要声明对象类型或利用声明合并时，优先使用 `interface`；
+而需要联合类型、元组、映射类型等高级功能以及定义原始类型别名事则使用 `type` 会更好。
+
+[^1]: [preferring-interfaces-over-intersections](https://github.com/microsoft/TypeScript/wiki/Performance#preferring-interfaces-over-intersections)

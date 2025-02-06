@@ -33,7 +33,7 @@ const CodeBlockWrap = ({
       )}
       <div
         onClick={copy}
-        className={`absolute right-4 z-[1] cursor-pointer text-sub-text transition-all duration-300 ease-in-out hover:scale-110 ${filename ? 'top-14' : 'top-4'}`}
+        className={`absolute right-4 top-4 z-[1] cursor-pointer text-sub-text transition-all duration-300 ease-in-out hover:scale-110`}
       >
         {!isCopied ? <Copy size={16} /> : <ClipboardCheck size={16} />}
       </div>
