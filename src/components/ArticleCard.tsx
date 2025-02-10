@@ -12,7 +12,7 @@ export function ArticleCard({ title, summary, date, slug }: IPost) {
           <CardTitle className="line-clamp-2 text-xl group-hover:text-primary">{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground mb-4 line-clamp-2 text-sm">{summary}</p>
+          <p className="text-muted-foreground mb-4 line-clamp-1 text-sm">{summary}</p>
           <div className="flex items-center justify-between">
             <time className="text-muted-foreground text-sm">
               <time> {dayjs(date).format('YYYY年MM月DD日')}</time>

@@ -61,7 +61,7 @@ export function getBlogByCatalog(type = 'blog') {
   return sortFiles
 }
 
-export function getRecentPosts(limit = 5) {
+export function getRecentPosts(limit = 3) {
   const allBlogs = getBlogByCatalog()
   return allBlogs.slice(0, limit)
 }

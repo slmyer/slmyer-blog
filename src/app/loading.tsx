@@ -1,12 +1,24 @@
 'use client'
 
-const LoadingAnimation: React.FC = () => {
+import React from 'react'
+
+const LoadingAnimation: React.FC<{ height?: number; width?: number }> = ({
+  height = 200,
+  width = 200,
+}) => {
+  // 根据宽高比例动态计算路径的坐标
+  const scaleX = width / 200
+  const scaleY = height / 200
+
+  const path1 = `M${40 * scaleX} ${100 * scaleY} C${60 * scaleX} ${60 * scaleY}, ${80 * scaleX} ${140 * scaleY}, ${100 * scaleX} ${100 * scaleY} S${140 * scaleX} ${60 * scaleY}, ${160 * scaleX} ${100 * scaleY}`
+  const path2 = `M${40 * scaleX} ${130 * scaleY} C${60 * scaleX} ${90 * scaleY}, ${80 * scaleX} ${170 * scaleY}, ${100 * scaleX} ${130 * scaleY} S${140 * scaleX} ${90 * scaleY}, ${160 * scaleX} ${130 * scaleY}`
+
   return (
-    <div className="flex min-h-screen items-center justify-center">
+    <div className="flex h-full w-full items-center justify-center">
       <svg
-        width="200"
-        height="200"
-        viewBox="0 0 200 200"
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -17,7 +29,7 @@ const LoadingAnimation: React.FC = () => {
           </linearGradient>
         </defs>
         <path
-          d="M40 100 C60 60 80 140 100 100 S140 60 160 100"
+          d={path1}
           stroke="url(#grad1)"
           strokeWidth="12"
           strokeLinecap="round"
@@ -27,7 +39,7 @@ const LoadingAnimation: React.FC = () => {
           strokeDashoffset="300"
         />
         <path
-          d="M40 130 C60 90 80 170 100 130 S140 90 160 130"
+          d={path2}
           stroke="url(#grad1)"
           strokeWidth="12"
           strokeLinecap="round"

@@ -17,6 +17,7 @@ import rehypeCitation from 'rehype-citation'
 import rehypeMdxCodeProps from 'rehype-mdx-code-props'
 import CodeBlockWrap from '@/components/CodeBlock'
 import { visit } from 'unist-util-visit'
+import Mermaid from '@/components/Mermaid'
 
 export async function generateStaticParams() {
   return getBlogPosts().map((v) => {
@@ -143,8 +144,13 @@ export default async function Blog(props: { params: Promise<{ slug: string }> })
     },
     components: {
       pre: (props) => {
+        if (props.className === 'language-mermaid') {
+          return <Mermaid chart={props.raw} {...props}></Mermaid>
+        }
+
         return <CodeBlockWrap {...props}></CodeBlockWrap>
       },
+      Mermaid,
     },
   })
 
