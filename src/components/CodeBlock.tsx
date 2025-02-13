@@ -27,7 +27,7 @@ const CodeBlockWrap = ({
   }, [raw])
 
   return (
-    <div className="relative overflow-hidden rounded-md shadow-sm">
+    <div className="relative mt-8 overflow-hidden rounded-md shadow-sm">
       {filename && (
         <div className="flex h-10 items-center bg-code-filename-bg px-4 text-text">{filename}</div>
       )}
