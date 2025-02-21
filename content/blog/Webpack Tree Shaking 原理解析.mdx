@@ -1,7 +1,7 @@
 ---
 title: 'Webpack Tree Shaking 原理解析'
 author: 'slmyer'
-date: '2025/02/06 19:11:30'
+date: '2025/02/08 19:11:30'
 tags: ['Webpack', 'Tree Shaking', '模块化']
 summary: '介绍 Webpack 是如何进行 Tree Shaking 解析，同时涵盖一些模块化知识点。'
 ---
@@ -49,7 +49,7 @@ import { utils } from './lib.js' // ✅ 路径为字面量
 export const PI = 3.14 // ✅ 顶层声明
 ```
 
-> ESM 同样支持动态导入，具体参考 import() [^2]，不过由于其动态性**可能**会影响 Tree Shaking，值得注意的是，字面量路径的动态导入不会影响 Tree Shaking。
+> ESM 同样支持动态导入，具体参考 import() [^2]，不过由于其动态性**可能**会影响 Tree Shaking，你可以使用相应的魔法注释[^3]来减小动态导入对 Tree Shaking 的影响。
 
 ```js
 // math.js
@@ -66,7 +66,7 @@ import('./math.js').then(({ add }) => add(2, 3))
 
 ## Webpack Tree Shaking 流程解析
 
-`Webpack` 的 Tree Shaking 实现可分为四个关键阶段，详细可以参考[^3]：
+`Webpack` 的 Tree Shaking 实现可分为四个关键阶段，详细可以参考[^4]：
 
 ```mermaid filename="阶段流程图"
 graph TD
@@ -236,12 +236,14 @@ console.log(add(2, 3))
 1. 确保使用 `ESM`: 只有 `ESM` 模块是静态的，Tree shaking 才能正常工作。尽量使用 `import` 和 `export`，避免使用 `CommonJS` 模块，需要注意的是使用 `babel` 确保它不会将 `ESM` 模块转换成其他模块。
 2. 标记副作用: 在 `package.json` 中使用 `sideEffects` 字段，告知打包工具哪些模块是无副作用的，这样可以更好地执行 Tree shaking。
 3. 避免动态代码: 动态导入和动态依赖（如 `require()`）会阻碍 Tree shaking 的工作，尽量避免这些模式。
-4. 通过魔法注释 `/*#__PURE__*/` 将函数标记为无副作用[^4]。
+4. 通过魔法注释 `/*#__PURE__*/` 将函数标记为无副作用[^5]。
 
 [^1]: [DCE](https://zh.wikipedia.org/wiki/%E6%AD%BB%E7%A2%BC%E5%88%AA%E9%99%A4)
 
 [^2]: [import 动态导入](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/import)
 
-[^3]: [Webpack 原理系列九：Tree-Shaking 实现原理](https://juejin.cn/post/7019104818568364069)
+[^3]: [Magic Comments](https://webpack.docschina.org/api/module-methods/#magic-comments)
 
-[^4]: [Webpack 官网 Tree Shaking 解释](https://webpack.docschina.org/guides/tree-shaking/)
+[^4]: [Webpack 原理系列九：Tree-Shaking 实现原理](https://juejin.cn/post/7019104818568364069)
+
+[^5]: [Webpack 官网 Tree Shaking 解释](https://webpack.docschina.org/guides/tree-shaking/)

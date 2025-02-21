@@ -169,8 +169,64 @@ type Readonly<T> = { readonly [K in keyof T]: T[K] } // 映射类型
 在 `TypeScript` 处理类型的扩展方面，使用 `extends` 来实现 `interface` 的扩展相较于使用交叉类型更具优化性。具体原因如下[^1]：
 
 1. 使用 `interface` 来扩展多个类型组合时，`TypeScript` 会将类型展开，同时检测属性是否存在冲突，而 `type` 只是合并操作，导致如果存在同名属性类型不同时会生成 `never` 类型。
+
+```ts
+// Interface 扩展
+interface Animal {
+  name: string
+}
+
+interface Dog {
+  name: number // 冲突属性
+}
+
+// ❌ 直接报错：后续接口错误扩展
+interface Hybrid extends Animal, Dog {}
+// 错误：Interface 'Hybrid' 不能同时扩展 'Animal' 和 'Dog'
+// 属性 'name' 的类型不兼容
+
+// Type 交叉类型
+type HybridType = Animal & Dog
+
+// ✅ 编译通过，但实际类型变为 never
+const test: HybridType = {
+  name: 'Buddy', // ❌ 错误：不能将 string 赋给 never 类型
+}
+```
+
 2. 同时，`interface` 的类型关系是可以缓存的，而 `type` 时动态合并的，这可能会导致性能下降。
+
 3. 当 `TypeScript` 在检查一个交叉类型时，它会先检查每个组成部分（即组成交叉类型的每个类型）。而对于 `interface`，检查的是展平后的最终类型。这意味着交叉类型的每个部分都必须先经过验证，因此交叉类型的类型检查可能更慢。
+
+```ts
+interface Person {
+  age: number
+}
+
+interface Employee {
+  department: string
+}
+
+// Interface 扩展
+interface Manager extends Person, Employee {
+  teamSize: number
+}
+
+/* 展开后等效：
+interface Manager {
+  age: number;
+  department: string;
+  teamSize: number;
+}
+*/
+
+// Type 交叉
+type ManagerType = Person & Employee & { teamSize: number }
+
+/* 结构保持交叉形态：
+Person & Employee & { teamSize: number }
+*/
+```
 
 ## 总结
 
