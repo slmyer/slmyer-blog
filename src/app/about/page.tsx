@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { Github, Mail, Globe } from 'lucide-react'
 
+export const dynamic = 'force-dynamic' // defaults to auto
+
 const technologies = [
   {
     category: '前端开发',

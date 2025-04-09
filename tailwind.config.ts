@@ -47,7 +47,7 @@ export default {
             '--tw-prose-headings': theme('colors.text'), // 标题颜色
             '--tw-prose-links': theme('colors.primary'), // 链接颜色
             '--tw-prose-links-hover': '#9333ea', // 链接悬停颜色
-            '--tw-prose-bold': '#ffffff', // 粗体颜色
+            '--tw-prose-bold': theme('colors.text'), // 粗体颜色
             '--tw-prose-counters': '#a1a1aa', // 列表计数器颜色
             '--tw-prose-bullets': '#71717a', // 列表项目符号颜色
             '--tw-prose-hr': '#333333', // 分隔线颜色
@@ -67,7 +67,7 @@ export default {
             '--tw-prose-headings': theme('colors.text'), // 标题颜色
             '--tw-prose-links': theme('colors.primary'), // 链接颜色
             '--tw-prose-links-hover': '#9333ea', // 链接悬停颜色
-            '--tw-prose-bold': theme('colors.primary'), // 粗体颜色
+            '--tw-prose-bold': theme('colors.text'), // 粗体颜色
             '--tw-prose-counters': '#a1a1aa', // 列表计数器颜色
             '--tw-prose-bullets': '#71717a', // 列表项目符号颜色
             '--tw-prose-hr': '#333333', // 分隔线颜色

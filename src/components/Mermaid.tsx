@@ -57,7 +57,7 @@ export default function Mermaid({ chart, filename }: { chart: string; filename: 
       <div
         ref={container}
         className={`mermaid flex justify-center bg-code-bg py-4 ${
-          isRendered ? 'visible' : 'invisible'
+          isRendered ? 'visible max-h-[80vh]' : 'invisible'
         }`}
         suppressHydrationWarning
       ></div>
