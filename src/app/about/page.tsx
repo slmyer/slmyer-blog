@@ -57,7 +57,7 @@ export default function About() {
 
           <div className="space-y-12">
             <section className="space-y-6">
-              <p className="text-lg leading-relaxed">暂时想不到什么来介绍自己，等想到再补充吧。</p>
+              <p className="text-lg leading-relaxed">有点奇怪的人</p>
             </section>
 
             <section className="space-y-8">
